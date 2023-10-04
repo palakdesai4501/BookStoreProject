@@ -2,8 +2,8 @@ import express, { request, response } from "express";
 import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import bodyParser from "body-parser"
-// import  {Book}  from "./models/bookModel.js";
-import Book from './models/bookModel.js';
+import booksRoute from './routes/booksRoute.js'
+import {Book} from './models/bookModel.js';
 
 
 const app = express();
@@ -17,6 +17,8 @@ app.get("/", (request, response) => {
   console.log(request);
   return response.status(234).send("welcome to MERN Stack Tutorial");
 });
+
+app.use('/books', booksRoute);
 
 mongoose.connect('mongodb://127.0.0.1:27017/book_store', {
   useNewUrlParser: true,
