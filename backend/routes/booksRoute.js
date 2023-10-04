@@ -5,7 +5,7 @@ import { Book } from '../models/bookModel';
 const router = express.Router();
 
 // Route For Save a New Book
-router.post("/books", async (request, response) => {
+router.post("/", async (request, response) => {
     try {
       if (
         !request.body.title ||
@@ -33,7 +33,7 @@ router.post("/books", async (request, response) => {
   });
   
   // Update a Book
-  router.put('/books/:id', async(request, response) => {
+  router.put('/:id', async(request, response) => {
       try{
           if (
               !request.body.title ||
@@ -62,7 +62,7 @@ router.post("/books", async (request, response) => {
   })
   
   // Route for Get All Books frm database
-  router.get('/books', async ( request, response) => {
+  router.get('/', async ( request, response) => {
       try{
           const books = await Book.find({});
   
@@ -77,7 +77,7 @@ router.post("/books", async (request, response) => {
   });
   
   // Route for Get All Books frm database by id
-  router.get('/books/:id', async ( request, response) => {
+  router.get('/:id', async ( request, response) => {
       try{
   
           const { id } = request.params;
@@ -92,7 +92,7 @@ router.post("/books", async (request, response) => {
   });
   
   // Route for delete a book
-  router.delete('/books/:id', async (request, response) => {
+  router.delete('/:id', async (request, response) => {
       try{
           const { id } = request.params;
   
