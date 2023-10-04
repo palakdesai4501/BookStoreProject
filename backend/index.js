@@ -18,6 +18,7 @@ app.get("/", (request, response) => {
   return response.status(234).send("welcome to MERN Stack Tutorial");
 });
 
+// Route For Save a New Book
 app.post("/books", async (request, response) => {
   try {
     if (
@@ -63,9 +64,6 @@ app.put('/books/:id', async(request, response) => {
           const result = await Book.findByIdAndUpdate(id, request.body);
 
           if(!result){
-            if (!mongoose.Types.ObjectId.isValid(id)) {
-                return response.status(400).json({ message: 'Invalid ObjectId' });
-              }
 
             return response.status(404).json({ message: 'Book not found'});
           }
@@ -107,7 +105,24 @@ app.get('/books/:id', async ( request, response) => {
     }
 });
 
+// Route for delete a book
+app.delete('/books/:id', async (request, response) => {
+    try{
+        const { id } = request.params;
 
+        const result = await Book.findByIdAndDelete(id);
+
+        if(!result){
+
+          return response.status(404).json({ message: 'Book not found'});
+        }
+
+        return response.status(200).send({ message: 'Book Deleted Successfully' });
+    }catch(error){
+        console.log(error.message);
+        response.status(500).send({ message: error.message })
+    }
+});
 
 mongoose.connect('mongodb://127.0.0.1:27017/book_store', {
   useNewUrlParser: true,
