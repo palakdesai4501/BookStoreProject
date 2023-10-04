@@ -1,10 +1,15 @@
 import express, { request, response } from "express";
 import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
-import { Book } from "./models/bookModel.js";
+import bodyParser from "body-parser"
+// import  {Book}  from "./models/bookModel.js";
+import Book from './models/bookModel.js';
+
 
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 // Middleware for parsing request body
 app.use(express.json());
 
@@ -29,9 +34,11 @@ app.post("/books", async (request, response) => {
       author: request.body.author,
       publishYear: request.body.publishYear,
     };
+    const data = new Book(newBook)
+await data.save()
+    // const book = await Book.insertOne(newBook);
 
-    const book = await Book.create(newBook);
-    return response.status(201).send(book);
+    return response.status(201).send(data);
   } catch (error) {
     console.log(error.message);
     response.status(500).send({ message: error.message });
@@ -68,14 +75,19 @@ app.get('/books/:id', async ( request, response) => {
     }
 });
 
-mongoose
-  .connect(mongoDBURL)
-  .then(() => {
-    console.log("App Connected to database");
-    app.listen(PORT, () => {
-      console.log(`App is listening to port: ${PORT}`);
-    });
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+mongoose.connect('mongodb://127.0.0.1:27017/book_store', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+mongoose.connection.on('connected', () => {
+  console.log('Connected to MongoDB');
+});
+
+mongoose.connection.on('error', (err) => {
+  console.error('Error connecting to MongoDB:', err);
+});
+
+app.listen(PORT, () => {
+  console.log('Server is listening....');
+});
