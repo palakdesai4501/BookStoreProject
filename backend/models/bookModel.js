@@ -6,9 +6,9 @@ const bookSchema = new Schema(
   {
     title: { type: String, required: true },
     author: { type: String, required: true },
-    publishYear: { type: Number },
+    publishYear: { type: Number, required: true },
   },
   { timestamps: true },
 )
 
-export default mongoose.model('Book', bookSchema);
+export const Book = mongoose.model('Book', bookSchema);
