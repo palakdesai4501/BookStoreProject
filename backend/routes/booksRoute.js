@@ -1,11 +1,10 @@
 import express from 'express';
-import { Book } from '../models/bookModel';
-
+import { Book } from '../models/bookModel.js';
 
 const router = express.Router();
 
 // Route For Save a New Book
-router.post("/", async (request, response) => {
+router.post('/', async (request, response) => {
     try {
       if (
         !request.body.title ||
@@ -111,3 +110,4 @@ router.post("/", async (request, response) => {
   });
 
   export default router;
+  
