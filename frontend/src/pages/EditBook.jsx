@@ -14,17 +14,17 @@ const EditBook = () => {
   const { id } = useParams();
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost/books/${id}`)
+    axios.get(`http://localhost:5555/books/${id}`)
     .then((response) => {
       setAuthor(response.data.author)
       setPublishYear(response.data.publishYear)
       setTitle(response.data.title)
-      setLoading(false);
+      setLoading(false)
     }).catch((error) => {
       setLoading(false);
       alert('An error happended. Please Check Console');
       console.log(error);
-    })
+    });
   }, [])
 
   const handleEditBook = () => {
@@ -50,7 +50,7 @@ const EditBook = () => {
   return (
     <div className='p-4'>
       <BackButton />
-      <h1 className='text-3xl my-4'>Edit Book Book</h1>
+      <h1 className='text-3xl my-4'>Edit Book</h1>
       { loading ? <Spinner /> : '' }
       <div className='flex flex-col border-2 border-sky-400 rounded-xl w-[600px] p-4 mx-auto'>
         <div className='my-4'>
