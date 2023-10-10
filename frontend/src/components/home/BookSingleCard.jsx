@@ -42,7 +42,7 @@ const BookSingleCard = ({ book }) => {
         </Link>
       </div>
       {showModel && (
-        <BookModel book={book} onClick={() => setShowModel(false)} />
+        <BookModel book={book} onClose={() => setShowModel(false)} />
       )}
     </div>
   );
