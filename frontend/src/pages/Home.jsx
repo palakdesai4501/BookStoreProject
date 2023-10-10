@@ -36,7 +36,7 @@ const Home = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <BooksTable />
+        <BooksTable books={books}/>
       )}
     </div>
   )
