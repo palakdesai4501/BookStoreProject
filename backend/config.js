@@ -1,4 +1,3 @@
 export const PORT = 5555;
 
-export const mongoDBURL =
-'mongodb://localhost:27017/book_store'
+export const mongoDBURL = "mongodb://localhost:27017/book_store";
